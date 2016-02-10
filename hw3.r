@@ -24,7 +24,7 @@ obsexp <- rbind(obs,exp)
 barplot(obsexp,main="Distribution of Arrivals per 15s", xlab="# of Cars", ylab="Empirical Count of 15s Chunks", beside=TRUE, legend=c("Observed","Expected"))
 
 ## Posterior Poisson
-prior <- array(1/20,20)
+prior <- array(1/20,20)         # uniform .05 n=20
 lambdas <- seq(from=.2, to=4, by=.2)
 
 lik <- array(1,length(lambdas))
@@ -34,4 +34,5 @@ for (i in 1:length(xp15)) {
 post <- prior*lik
 post <- post/sum(post)
 
-barplot(post, names=lambdas, ylab="Probability", xlab=expression(Lambda), main=expression(paste("Posterior Distribution for Arrival Rate ",Lambda)))
+barplot(prior,names=lambdas, ylab="Probability", xlab=expression(Lambda), main=expression(paste("Prior Distribution for Arrival Rate ",Lambda)), ylim=c(0,.25))
+barplot(post, names=lambdas, ylab="Probability", xlab=expression(Lambda), main=expression(paste("Posterior Distribution for Arrival Rate ",Lambda)), ylim=c(0,.25))
