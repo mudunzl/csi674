@@ -2,11 +2,12 @@
 
 ## DATA
 x<-c(12, 2, 6, 2, 19, 5, 34, 4, 1, 4, 8, 7, 1, 21, 6, 11, 8, 28, 6, 4, 5, 1, 18, 9, 5, 1, 21, 1, 1, 5, 3, 14, 5, 3, 4, 5, 1, 3, 16, 2)
+xcs <- cumsum(x)
+xint <- diff(x)
+
 
 
 ## Exponential?
-xcs <- cumsum(x)
-xint <- diff(x)
 eq <- qexp(ppoints(length(x)))
 
 qqplot(eq,xint,main="Exp Q-Q Plot of Car Arrival Intervals",xlab="Theoretical Exp Quantiles",ylab="Empirical Quantiles")
