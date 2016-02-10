@@ -21,7 +21,7 @@ xrate <- mean(xp15)             # estimated Poisson rate by 40 cars in 21 15s ch
 exp <- dpois(0:4,xrate)*21      # expected arrivals for Poisson distribution
 
 obsexp <- rbind(obs,exp)
-barplot(obsexp,main="Distribution of Arrivals per 15s", xlab="# of Cars", ylab="Probability", beside=TRUE, legend=c("Observed","Expected"))
+barplot(obsexp,main="Distribution of Arrivals per 15s", xlab="# of Cars", ylab="Empirical Count of 15s Chunks", beside=TRUE, legend=c("Observed","Expected"))
 
 ## Posterior Poisson
 prior <- array(1/20,20)
