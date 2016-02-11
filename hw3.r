@@ -10,8 +10,8 @@ xint <- diff(xcs)
 ## Exponential?
 eq <- qexp(ppoints(length(x)))
 
-qqplot(eq,xint,main="Exp Q-Q Plot of Car Arrival Intervals",xlab="Theoretical Exp Quantiles",ylab="Empirical Quantiles")
-lines(eq,eq*mean(xint))
+qqplot(eq,x,main="Exp Q-Q Plot of Car Arrival Intervals",xlab="Theoretical Exp Quantiles",ylab="Empirical Quantiles")
+lines(eq,eq*mean(x))
 
 ## Poisson?
 freq15 <- ceiling(xcs/15)
