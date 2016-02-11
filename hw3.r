@@ -36,3 +36,9 @@ post <- post/sum(post)
 
 barplot(prior,names=lambdas, ylab="Probability", xlab=expression(Lambda), main=expression(paste("Prior Distribution for Arrival Rate ",Lambda)), ylim=c(0,.25))
 barplot(post, names=lambdas, ylab="Probability", xlab=expression(Lambda), main=expression(paste("Posterior Distribution for Arrival Rate ",Lambda)), ylim=c(0,.25))
+
+meanpost <- sum(lambdas*post)                     # E(x) = sum[ x * P(x) ]      
+meanprior <- sum(lambdas*prior) 
+
+sdpost <- sqrt(sum(((lambdas-meanpost)^2)*post))  # SD(x) = sqrt{ sum[ (x-mu)^2 * P(x) ] }
+sdprior <- sqrt(sum(((lambdas-meanprior)^2)*prior))
