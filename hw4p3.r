@@ -61,3 +61,8 @@ modee = (ase-1)*bse
 mediane = qgamma(.5,shape=ase,scale=bse)
 
 int95e = c(qgamma(.025,shape=ase,scale=bse),qgamma(.975,shape=ase,scale=bse))
+
+
+#### Problem 4
+
+lik = dgamma(lambdae,shape=sum(xi)+1,scale=1/(length(xi)))
