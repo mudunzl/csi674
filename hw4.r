@@ -18,7 +18,7 @@ bs=1/((1/b)+length(xi)) ## n = length(xi)
 prior = dgamma(lambda, shape = a, scale = b)
 post = dgamma(lambda, shape = as, scale = bs)
 
-plot(lambda,post,col="blue",type="l",ylab="Density",xlab="Lambda",main="Gamma Posterior")
+plot(lambda,post,col="blue",type="l",ylab="Density",xlab="Lambda",main="Gamma Posterior",ylim=c(0,1.4))
 lines(lambda,prior,col="red")
 legend(3,1,c("Post","Prior"),col=c("blue","red"),lty=c(1,1))
 
@@ -40,7 +40,7 @@ be=1/((1/b)+ne)
 
 
 priore = dgamma(lambdae,shape=ae,scale=be)
-plot(lambdae,priore,type="l",ylab="Density",xlab="Lambda",main="Engineer's Prior")
+plot(lambdae,priore,type="l",ylab="Density",xlab="Lambda",main="Engineer's Prior",ylim=c(0,1.4))
 
 qgamma(.1,shape=ae,scale=be)  #
 qgamma(.9,shape=ae,scale=be)
@@ -64,13 +64,17 @@ mediane = qgamma(.5,shape=ase,scale=bse)
 
 int95e = c(qgamma(.025,shape=ase,scale=bse),qgamma(.975,shape=ase,scale=bse))
 
+plot(lambdae,poste,col="blue",type="l",ylab="Probability Density",xlab="Lambda: Cars Per 15s",main="Car Arrivals with Engineer's Prior",ylim=c(0,1.4))
+lines(lambdae,priore,col="red")
+
+legend(6,1.0,c("Post","Prior"),col=c("blue","red"),lty=c(1,1))
 
 #### Problem 4
 
 likc = dgamma(lambdae,shape=sum(xi)+1,scale=1/(length(xi)))
 
 
-plot(lambdae,poste,col="blue",type="l",ylab="Probability Density",xlab="Lambda: Cars Per 15s",main="Triplot for Car Arrivals with Engineer's Prior")
+plot(lambdae,poste,col="blue",type="l",ylab="Probability Density",xlab="Lambda: Cars Per 15s",main="Triplot for Car Arrivals with Engineer's Prior",ylim=c(0,1.4))
 lines(lambdae,priore,col="red")
 lines(lambdae,likc,col="green")
 legend(6,1.0,c("Post","Norm Lik","Prior"),col=c("blue","green","red"),lty=c(1,1,1))
