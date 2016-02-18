@@ -42,7 +42,7 @@ be=1/((1/b)+ne)
 priore = dgamma(lambdae,shape=ae,scale=be)
 plot(lambdae,priore,type="l",ylab="Density",xlab="Lambda",main="Engineer's Prior",ylim=c(0,1.4))
 
-qgamma(.1,shape=ae,scale=be)  #
+qgamma(.1,shape=ae,scale=be)  # just calling these to get values to answer the HW problems
 qgamma(.9,shape=ae,scale=be)
 qgamma(.5,shape=ae,scale=be)
 ae*be
