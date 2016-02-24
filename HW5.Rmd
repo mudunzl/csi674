@@ -1,0 +1,176 @@
+---
+title: "Homework 5"
+author: "Marek Dwulit"
+date: "February 24, 2016"
+output: pdf_document
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{Marek Dwulit, HW:5, SYST:664}
+---
+\newpage
+
+\section{Problem 1}
+
+\subsection{a)}
+
+```{r}
+#Hw 5
+#Problem 1 a)
+theta=seq(length=100,from=0.001,to=0.999)
+alpha0=1; beta0=3;
+priorDens=dbeta(theta,shape1=alpha0,shape2=beta0) # Prior density
+
+plot(theta,priorDens,type="l",col="blue",
+     main="Pr.1 a) Prior Beta Dsitribution for alpha = 1 and beta = 3 (Continuous)",
+     xlab="theta",ylab="Probability Density",
+     xlim=c(0,1),ylim=c(0,4))
+```
+
+```{r}
+meanPrior = alpha0/(alpha0+beta0)
+variancePrior = alpha0*beta0/((alpha0+beta0)^2*(alpha0+beta0+1))
+stdDevPrior = sqrt(variancePrior)
+lowerBoundry95PriorDens = qbeta (0.025, shape1 = alpha0, shape2 = beta0)
+highBoundry95PriorDens = qbeta (0.975, shape1 = alpha0, shape2 = beta0)
+```
+
+mean = `r meanPrior`
+
+stdDevPrior = `r stdDevPrior`
+
+Symetric Tial Area Credible Confidence interval 95% = <`r lowerBoundry95PriorDens`, `r highBoundry95PriorDens`>
+
+Do you think that this is a reasonable prior distribution to use for this problem? Who or why not?
+
+We have following assumptions in the experiment:
+
+* Each choice follows Bernouli distribiution
+* Choices are independent
+* And the probability of choosing B and C is the same
+
+So the number of successes has Binomial distribution. The conjucate pair for Binomial distribution is the Beta distribuiotn.
+Furthermore the prior distribution does not carry too much information with it. The virtual count is reasonable low and there 
+is a small risk of overconfidence. So it is reasonable distribution to start with. 
+
+\subsection{b)}
+
+
+```{r}
+nBC = 19
+nT = 47
+
+alpha1 = alpha0 + nBC
+beta1 = beta0 + nT - nBC 
+postDens=dbeta(theta,shape1=alpha1,shape2=beta1)  # Posterior 1
+normLik=dbeta(theta,shape1=nBC+1,shape2=nT+1-nBC)    # Normalized Likelihood is a Gamma
+
+plot(theta,priorDens,type="l",col="blue",
+     main=paste("Triplot for Problem 1 b (",nBC,"Choice B & C",nT,"Respondents)"),
+     xlab="B and C choice Probability",ylab="Probability Density",
+     xlim=c(0,1),ylim=c(0,8))
+lines(theta,normLik,col="green")
+lines(theta,postDens,col="red")
+legend(0.7,6.0,c("Prior","Norm Lik","Posterior"),col=c("blue","green","red"),
+       lty=c(1,1,1))
+
+meanPost = alpha1/(alpha1+beta1)
+variancePost = alpha1*beta1/((alpha1+beta1)^2*(alpha1+beta1+1))
+stdDevPost = sqrt(variancePost)
+lowerBoundry95PostDens = qbeta (0.025, shape1 = alpha1, shape2 = beta1)
+highBoundry95PostDens = qbeta (0.975, shape1 = alpha1, shape2 = beta1)
+```
+
+meanPost = `r meanPost`
+
+stdDevPost = `r stdDevPost`
+
+Symetric Tial Area Credible Confidence interval 95% = <`r lowerBoundry95PostDens`, `r highBoundry95PostDens`>
+
+\subsection{c)}
+```{r}
+nBC2 = 20
+nT2 = 47
+
+alpha2 = alpha1 + nBC2
+beta2 = beta1 + nT2 - nBC2 
+postDens2=dbeta(theta,shape1=alpha2,shape2=beta2)  # Posterior 1
+normLik2=dbeta(theta,shape1=nBC2+1,shape2=nT2+1-nBC2)    # Normalized Likelihood is a Gamma
+
+plot(theta,postDens,type="l",col="blue",
+     main=paste("Triplot for Problem 1 b (",nBC2,"Choice B & C",nT2,"Respondents)"),
+     xlab="B and C choice Probability",ylab="Probability Density",
+     xlim=c(0,1),ylim=c(0,8))
+lines(theta,normLik2,col="green")
+lines(theta,postDens2,col="red")
+legend(0.7,6.0,c("Prior","Norm Lik","Posterior"),col=c("blue","green","red"),
+       lty=c(1,1,1))
+
+meanPost2 = alpha2/(alpha2+beta2)
+variancePost2 = alpha2*beta2/((alpha2+beta2)^2*(alpha2+beta2+1))
+stdDevPost2 = sqrt(variancePost2)
+lowerBoundry95PostDens2 = qbeta (0.025, shape1 = alpha2, shape2 = beta2)
+highBoundry95PostDens2 = qbeta (0.975, shape1 = alpha2, shape2 = beta2)
+```
+meanPost2 = `r meanPost2`
+
+stdDevPost2 = `r stdDevPost2`
+
+Symetric Tial Area Credible Confidence interval 95% = <`r lowerBoundry95PostDens2`, `r highBoundry95PostDens2`>
+
+\subsection{d)}
+
+Comment:
+
+As we can see, from the last plot, the posterior distribution has good parameters. The delta between means, after considering first sample and considering second sample is small `r (meanPost2 - meanPost)`. However, we can appreciate the value of the Bayes procedure when we consider standard deviation. The difference in standard deviation when 2009 was included and 2011 data was included is `r stdDevPost-stdDevPost2`. This is a significant improvement, which can be noticed on the previous figure.
+
+Also we can notice that the mean of the posterior distribution is shifting. It starts with `r meanPrior` and it shifts to `r meanPost2`.
+
+\newpage
+
+\section{Problem 2}
+
+
+```{r results='hide', message=FALSE, warning=TRUE}
+library(VGAM)
+library(VGAMdata)
+```
+
+\subsection{a)}
+```{r}
+SumXi = 0:47
+
+betabinomPredDistA = dbetabinom.ab(SumXi, size=max(SumXi), shape1=1, shape2=3, log = FALSE)
+binomPredDistA = dbinom(SumXi, max(SumXi), 0.25)
+
+joinPredDistAs = rbind(binomPredDistA, betabinomPredDistA);
+
+barplot(joinPredDistAs,main="Predictive distribution of sufficient statistic", 
+        xlab="Value of Sufficient Statistic", ylab="Probability", col=c("lightblue","blue"),
+        border=c("darkblue","black"),names.arg=SumXi, beside=TRUE,
+        legend=c("Binom Dist - Mean = 11.75","Prior - Beta(1,3)"))
+```
+
+Comment:
+
+The binomial probability distribution has a false sense of accuracy because we don't know the true value of the probability of the success for the binomial distribution. We have to remember that binomial distribution is accurate when we know probability of the success, and in this case the probability of the success is an assumption, not a fact.
+On the other hand, the predictive distribution has the same mean but reflects the fact that we don't know the true probability of success better. We can see that the whole range of outcomes is possible and that we expect that the sufficient statistic will have lower values rather then high values.
+
+
+\subsection{b)}
+```{r}
+betabinomPredDistB = dbetabinom.ab(0:47, size=47, shape1=alpha1, shape2=beta1, log = FALSE)
+binomPPostDistB = dbinom(SumXi, max(SumXi), meanPost)
+
+jointABDist=rbind(binomPPostDistB,betabinomPredDistB)   # Bind into single object for plotting
+barplot(jointABDist,main="Predictive distribution of sufficient statistic", 
+        xlab="Sufficient statistic", 
+        ylab="Probability", col=c("lightblue","yellow"), 
+        border=c("darkblue","black"),
+        names.arg=0:47, beside=TRUE,
+        legend=c("Binomial distribution","Predictive distribution"))
+```
+
+Comment:
+
+As we can see the posterior distribution is much closer to the binomial distribution. Both distributions have the same mean. However the binomial distribution is more acute, which indicates that there is false sense of accuracy. Again we don't know the true probability of success and using binomial distribution for predicting the value of sufficient statistic is incorrect.
