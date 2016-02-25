@@ -21,7 +21,7 @@ prior=dbeta(p,a,b)
 as=a+19
 bs=b+47-19
 post2009=dbeta(p,as,bs)
-nlik2009=dbeta(p,19,47-19)
+nlik2009=dbeta(p,19+1,47-19+1)
 
 plot(p,prior,type="l",ylim=c(-.2,8.5),col="green",main="2009 Distributions for 19/47")
 lines(p,post2009,type="l",ylim=c(0,8.5),col="red")
@@ -40,7 +40,7 @@ prior2011=post2009
 ass=as+20
 bss=bs+47-20
 post2011=dbeta(p,ass,bss)
-nlik2011=dbeta(p,20,47-20)
+nlik2011=dbeta(p,20+1,47-20+1)
 
 plot(p,prior2011,type="l",ylim=c(-.2,8.5),col="green",main="2011 Distributions for 20/47")
 lines(p,post2011,type="l",ylim=c(0,8.5),col="red")
