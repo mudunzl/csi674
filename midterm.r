@@ -24,22 +24,28 @@ post1=dinvgamma(t,a11,1/b11)
 plot(t,prior,type="l")
 lines(t,post)
 
-
 ### Problem 2
 
-t2=seq(length=50,from=.05,to=1)
-prior2=array(1/50,50)
-postt1=prior2*(t2^19)*((1-t2)^51)
-postt1=postt1/sum(postt1)
-postt2=prior2*(t2^30)*((1-t2)^40)
-postt2=postt2/sum(postt2)
-
-plot2=rbind(postt1,postt2)
-barplot(plot2,beside=TRUE,names=round(t2,2),legend=c("Treatment","Placebo"),ylab="Density",xlab="Theta",main="Distribution of Relapse in Treatment vs. Placebo Groups")
 
 ### Problem 3
+
+t3=seq(length=50,from=.05,to=1)
+prior3=array(1/50,50)
+postt1=prior3*(t3^19)*((1-t3)^51)
+postt1=postt1/sum(postt1)
+postt2=prior3*(t3^30)*((1-t3)^40)
+postt2=postt2/sum(postt2)
+
+plot3=rbind(postt1,postt2)
+barplot(plot3,beside=TRUE,names=round(t3,2),legend=c("Treatment","Placebo"),ylab="Density",xlab="Theta",main="Distribution of Relapse in Treatment vs. Placebo Groups")
+
+### Problem 4
 
 rt1i=rbinom(1000,70,19/70)
 rt2i=rbinom(1000,70,30/70)
 dti=rt2i-rt1i
 pt1l=sum(dti>0)/length(dti)
+
+
+
+
