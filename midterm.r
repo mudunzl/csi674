@@ -1,7 +1,10 @@
-### Problem 1
 
+library(stats)
+library(VGAM)
 library(MCMCpack)
 library(Rgraphviz,graph)
+
+### Problem 1
 
 #call times in seconds
 x1=c( 640, 654, 1086, 1339, 1518, 1633, 1874, 2037, 2169,
@@ -69,5 +72,8 @@ barplot(rbind(pred5,predb5),names=t5,beside=TRUE,legend=c("Predictive","Bin(50,1
 x8 = c(90, 76, 90, 64, 86, 51, 72, 90, 95, 78)
 plot(density(x8))
 lines(dnorm(0:120,mean(x8),sd(x8)))
+
+### Problem 9
+
 
 
