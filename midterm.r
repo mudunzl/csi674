@@ -1,28 +1,30 @@
-### Problem 1
 
+library(VGAM)
 library(MCMCpack)
 library(Rgraphviz,graph)
+
+### Problem 1
 
 #call times in seconds
 x1=c( 640, 654, 1086, 1339, 1518, 1633, 1874, 2037, 2169,
      2478, 2908, 2987, 3245, 3266, 3301)
 
 #inter call times 
-dx1=diff(x)
+dx1=diff(x1)
 
 a10=4
 b10=.002
 t1=seq(length=100,from=0.1,to=1)
 
-a11=a0+length(dx)
-b11=b0/(1+(b0*sum(dx)))
+a11=a10+length(dx1)
+b11=b10/(1+(b10*sum(dx1)))
 
 
-prior1=dinvgamma(t,a10,1/b10)
-post1=dinvgamma(t,a11,1/b11)
+prior1=dinvgamma(t1,a10,1/b10)
+post1=dinvgamma(t1,a11,1/b11)
 
-plot(t,prior,type="l")
-lines(t,post)
+plot(t1,prior1,type="l")
+lines(t1,post1)
 
 ### Problem 2
 
@@ -46,6 +48,15 @@ rt2i=rbinom(1000,70,30/70)
 dti=rt2i-rt1i
 pt1l=sum(dti>0)/length(dti)
 
+### Problem 5
+
+a50 = 1+19
+b50 = 1+51
+t5 = 0:50
+
+pred5 = dbetabinom.ab(t5,50,a50,b50)
+predb5 = dbinom(t5,50,19/70)
+barplot(rbind(pred5,predb5),names=t5,beside=TRUE,legend=c("Predictive","Bin(50,19/70)"),main="Predictive vs Binomial on 50 steroid treated patients",xlab="Relapses")
 
 
 
