@@ -106,9 +106,10 @@ prior9=dnorm(t9,85,9)
 nlik9=dnorm(t9,xbar,sig/sqrt(n))
 post9=dnorm(t9,mus,taus)
 
-plot(t9,prior9,type="l",col="blue",ylim=c(-.01,.1))
+plot(t9,prior9,type="l",col="blue",ylim=c(-.01,.1),xlab="Weight(g) Gain in Rats",ylab="")
 lines(t9,nlik9,col="red")
 lines(t9,post9,col="green")
+legend(100,.08,c("Prior","Normalized Likelihood","Post"),col=c("blue","red","green"),lty=c(1,1,1))
 
 ### Problem 10
 
