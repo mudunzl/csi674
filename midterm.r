@@ -66,7 +66,7 @@ barplot(rbind(pred5,predb5),names=t5,beside=TRUE,legend=c("Predictive","Bin(50,1
 
 ### Problem 6 (HW1P4)
 
-
+#   (.00044,.01575)
 
 ### Problem 7 (HW4P2 using optim() function)
 
