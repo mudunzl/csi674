@@ -5,7 +5,7 @@ library(MCMCpack)
 library(Rgraphviz,graph)
 library(actuar)
 
-### Problem 1
+### Problem 1 (Inter Birth Times example)
 
 #call times in seconds
 x1=c( 640, 654, 1086, 1339, 1518, 1633, 1874, 2037, 2169,
@@ -29,13 +29,13 @@ cipost1 = qinvgamma(c(.025,.975),shape=a11,scale=1/b11)  #so I specified scale t
 #plot(t1,prior1,type="l")
 #lines(t1,post1)
 
-### Problem 2
+### Problem 2 (# events in a time period is poisson)
 
 mean2 = 1/(b11*(a11-1))   #mean rate of posterior
 lambda2 = 300/mean2      #time/rate
 pofmorethan3 = ppois(3,lambda2,lower.tail=FALSE)   #P(X > 3)
 
-### Problem 3
+### Problem 3 
 
 t3=seq(length=50,from=.05,to=1)
 prior3=array(1/50,50)
@@ -47,7 +47,7 @@ postt2=postt2/sum(postt2)
 plot3=rbind(postt1,postt2)
 barplot(plot3,beside=TRUE,names=round(t3,2),legend=c("Treatment","Placebo"),ylab="Density",xlab="Theta",main="Distribution of Relapse in Treatment vs. Placebo Groups")
 
-### Problem 4
+### Problem 4 (Unit 4 Slide 7)
 
 rt1i=rbinom(1000,70,19/70)
 rt2i=rbinom(1000,70,30/70)
@@ -64,11 +64,11 @@ pred5 = dbetabinom.ab(t5,50,a50,b50)
 predb5 = dbinom(t5,50,19/70)
 barplot(rbind(pred5,predb5),names=t5,beside=TRUE,legend=c("Predictive","Bin(50,19/70)"),main="Predictive vs Binomial on 50 steroid treated patients",xlab="Relapses")
 
-### Problem 6
+### Problem 6 (HW1P4)
 
 
 
-### Problem 7
+### Problem 7 (HW4P2 using optim() function)
 
 gamma.fit = function(pars,p,q) {
   a7 = pars[1]
@@ -79,7 +79,7 @@ fit = optim(c(1,1),function(ab){gamma.fit(ab,c(0.1,0.5,0.9),c(5,10,20))})
 
 # a=3.4423754, b=0.2985795
 
-### Problem 8
+### Problem 8 (Unit 5 slides)
 
 x8 = c(90, 76, 90, 64, 86, 51, 72, 90, 95, 78)
 
@@ -91,7 +91,7 @@ lines(dnorm(0:120,mean(x8),sd(x8)))
 qqnorm(x8,xlim=c(-3,3),ylim=c(50,120))
 qqline(x8)
 
-### Problem 9
+### Problem 9 (Reaction times example)
 
 sig = 15
 mu = 85
@@ -111,7 +111,7 @@ lines(t9,nlik9,col="red")
 lines(t9,post9,col="green")
 legend(100,.08,c("Prior","Normalized Likelihood","Post"),col=c("blue","red","green"),lty=c(1,1,1))
 
-### Problem 10
+### Problem 10 (Unit 5 Slide 12 + Reaction times example)
 
 ci1rat = qnorm(c(.025,.975),mus,sqrt(((sig^2)/1) + (taus^2)))
 ci10rats = qnorm(c(.025,.975),mus,sqrt(((sig^2)/10) + (taus^2)))
