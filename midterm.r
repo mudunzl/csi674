@@ -52,7 +52,7 @@ barplot(plot3,beside=TRUE,names=round(t3,2),legend=c("Treatment","Placebo"),ylab
 rt1i=rbinom(1000,70,19/70)
 rt2i=rbinom(1000,70,30/70)
 dti=rt2i-rt1i
-pt1l=sum(dti>0)/length(dti)
+pt1L=sum(dti>0)/length(dti)
 
 ### Problem 5
 
