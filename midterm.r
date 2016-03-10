@@ -3,12 +3,13 @@ library(stats)
 library(VGAM)
 library(MCMCpack)
 library(Rgraphviz,graph)
+library(actuar)
 
 ### Problem 1
 
 #call times in seconds
 x1=c( 640, 654, 1086, 1339, 1518, 1633, 1874, 2037, 2169,
-     2478, 2908, 2987, 3245, 3266, 3301)
+      2478, 2908, 2987, 3245, 3266, 3301)
 
 #inter call times 
 dx1=diff(x1)
@@ -20,12 +21,13 @@ t1=seq(length=100,from=0.1,to=1)
 a11=a10+length(dx1)
 b11=b10/(1+(b10*sum(dx1)))
 
+prior1=dinvgamma(t1,shape=a10,scale=1/b10)
+post1=dinvgamma(t1,shape=a11,scale=1/b11)
+ciprior1 = qinvgamma(c(.025,.975),shape=a10,scale=1/b10) #actuar package qinvgamma(p,shape,rate,scale) in that order 
+cipost1 = qinvgamma(c(.025,.975),shape=a11,scale=1/b11)  #so I specified scale to match with dinvgamma parameterization
 
-prior1=dinvgamma(t1,a10,1/b10)
-post1=dinvgamma(t1,a11,1/b11)
-
-plot(t1,prior1,type="l")
-lines(t1,post1)
+#plot(t1,prior1,type="l")
+#lines(t1,post1)
 
 ### Problem 2
 
@@ -68,7 +70,14 @@ barplot(rbind(pred5,predb5),names=t5,beside=TRUE,legend=c("Predictive","Bin(50,1
 
 ### Problem 7
 
+gamma.fit = function(pars,p,q) {
+  a7 = pars[1]
+  b7 = pars[2]
+  sum((q-qgamma(p,a7,b7))^2)
+}
+fit = optim(c(1,1),function(ab){gamma.fit(ab,c(0.1,0.5,0.9),c(5,10,20))}) 
 
+# a=3.4423754, b=0.2985795
 
 ### Problem 8
 
@@ -84,5 +93,27 @@ qqline(x8)
 
 ### Problem 9
 
+sig = 15
+mu = 85
+tau = 9
+xbar = mean(x8)
+t9=30:130
+n=length(x8)
+mus = ((mu/(tau^2)) + (sum(x8)/(sig^2))) / ((1/(tau^2)) + (n/(sig^2)))
+taus = 1/sqrt(((1/(tau^2))+(n/(sig^2))))
+
+prior9=dnorm(t9,85,9)
+nlik9=dnorm(t9,xbar,sig/sqrt(n))
+post9=dnorm(t9,mus,taus)
+
+plot(t9,prior9,type="l",col="blue",ylim=c(-.01,.1))
+lines(t9,nlik9,col="red")
+lines(t9,post9,col="green")
+
+### Problem 10
+
+ci1rat = qnorm(c(.025,.975),mus,sqrt(((sig^2)/1) + (taus^2)))
+ci10rats = qnorm(c(.025,.975),mus,sqrt(((sig^2)/10) + (taus^2)))
+ci1krats = qnorm(c(.025,.975),mus,sqrt(((sig^2)/1000) + (taus^2)))
 
 
