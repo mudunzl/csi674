@@ -66,7 +66,6 @@ barplot(rbind(pred5,predb5),names=t5,beside=TRUE,legend=c("Predictive","Bin(50,1
 
 ### Problem 6 (HW1P4)
 
-#   (.00044,.01575)
 
 ### Problem 7 (HW4P2 using optim() function)
 
@@ -113,10 +112,12 @@ lines(t9,nlik9,col="red")
 lines(t9,post9,col="green")
 legend(100,.08,c("Prior","Normalized Likelihood","Post"),col=c("blue","red","green"),lty=c(1,1,1))
 
+ci95post = qnorm(c(.025,.975),mus,taus)
+
 ### Problem 10 (Unit 5 Slide 12 + Reaction times example)
 
-ci1rat = qnorm(c(.025,.975),mus,sqrt(((sig^2)/1) + (taus^2)))
-ci10rats = qnorm(c(.025,.975),mus,sqrt(((sig^2)/10) + (taus^2)))
-ci1krats = qnorm(c(.025,.975),mus,sqrt(((sig^2)/1000) + (taus^2)))
+ci95_1rat = qnorm(c(.025,.975),mus,sqrt(((sig^2)/1) + (taus^2)))
+ci95_10rats = qnorm(c(.025,.975),mus,sqrt(((sig^2)/10) + (taus^2)))
+ci95_1krats = qnorm(c(.025,.975),mus,sqrt(((sig^2)/1000) + (taus^2)))
 
 
