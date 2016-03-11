@@ -76,6 +76,7 @@ gamma.fit = function(pars,p,q) {
   sum((q-qgamma(p,a7,b7))^2)
 }
 fit = optim(c(1,1),function(ab){gamma.fit(ab,c(0.1,0.5,0.9),c(5,10,20))}) 
+qgamma(c(.1,.5,.9),fit$par[1],fit$par[2])
 
 # a=3.4423754, b=0.2985795
 
