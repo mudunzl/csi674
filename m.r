@@ -87,6 +87,7 @@ x8 = c(90, 76, 90, 64, 86, 51, 72, 90, 95, 78)
 #kernal estimation along with a normal curve with mean=sample mean and sd=sample sd
 plot(density(x8))
 lines(dnorm(0:120,mean(x8),sd(x8)))
+legend(75,.015,c("Normal","Data"),col=c("red","blue"),lty=c(1,1))
 
 #qqplot
 qqnorm(x8,xlim=c(-3,3),ylim=c(50,120))
