@@ -43,7 +43,7 @@ postt1=prior3*(t3^19)*((1-t3)^51)
 postt1=postt1/sum(postt1)
 postt2=prior3*(t3^30)*((1-t3)^40)
 postt2=postt2/sum(postt2)
-jointpost3p=prior3*(t3^49)*((1-t3)^91)
+jointpost3=prior3*(t3^49)*((1-t3)^91)
 barplot(jointpost3,names=round(t3,2),main="Joint Treatment and Placebo distribution",xlab="Theta",ylab="Density")
 
 plot3=rbind(postt1,postt2)
@@ -74,12 +74,12 @@ barplot(rbind(pred5,predb5),names=t5,beside=TRUE,legend=c("Predictive","Bin(50,1
 gamma.fit = function(pars,p,q) {
   a7 = pars[1]
   b7 = pars[2]
-  sum((q-qgamma(p,a7,b7))^2)
+  sum((q-qgamma(p,a7,scale=b7))^2)
 }
 fit = optim(c(1,1),function(ab){gamma.fit(ab,c(0.1,0.5,0.9),c(5,10,20))}) 
-qgamma(c(.1,.5,.9),fit$par[1],fit$par[2])
+qgamma(c(.1,.5,.9),fit$par[1],scale=fit$par[2])
 
-# a=3.4423754, b=0.2985795
+# a=3.4423754, b=3.349294
 
 ### Problem 8 (Unit 5 slides)
 
