@@ -43,6 +43,8 @@ postt1=prior3*(t3^19)*((1-t3)^51)
 postt1=postt1/sum(postt1)
 postt2=prior3*(t3^30)*((1-t3)^40)
 postt2=postt2/sum(postt2)
+jointpost3p=prior3*(t3^49)*((1-t3)^91)
+barplot(jointpost3,names=round(t3,2),main="Joint Treatment and Placebo distribution",xlab="Theta",ylab="Density")
 
 plot3=rbind(postt1,postt2)
 barplot(plot3,beside=TRUE,names=round(t3,2),legend=c("Treatment","Placebo"),ylab="Density",xlab="Theta",main="Distribution of Relapse in Treatment vs. Placebo Groups")
