@@ -32,14 +32,14 @@ b1_b = 1 / ((1/b0_b) + .5*sum((b-bb)^2) + ((k0_b*n*((bb-mu0_b)^2))/2*(k0_b+n)))
 
 
 ### credible intervals
-ci90theta_s=c(mu1_s+qt(0.5,2*a1_s)/sqrt(k1_s*a1_s*b1_s),
+ci90theta_s=c(mu1_s+qt(0.05,2*a1_s)/sqrt(k1_s*a1_s*b1_s),
               mu1_s+qt(0.95,2*a1_s)/sqrt(k1_s*a1_s*b1_s))
-ci90theta_b=c(mu1_b+qt(0.5,2*a1_b)/sqrt(k1_b*a1_b*b1_b),
+ci90theta_b=c(mu1_b+qt(0.05,2*a1_b)/sqrt(k1_b*a1_b*b1_b),
               mu1_b+qt(0.95,2*a1_b)/sqrt(k1_b*a1_b*b1_b))
 
-ci90rho_s=c(qgamma(0.5,a1_s,scale=b1_s),
+ci90rho_s=c(qgamma(0.05,a1_s,scale=b1_s),
             qgamma(0.95,a1_s,scale=b1_s))
-ci90rho_b=c(qgamma(0.5,a1_b,scale=b1_b),
+ci90rho_b=c(qgamma(0.05,a1_b,scale=b1_b),
             qgamma(0.95,a1_b,scale=b1_b))
 
 
@@ -51,10 +51,10 @@ mctheta_b=rnorm(10000,bb,1/sqrt(mcrho_b*n))
 
 
 ### credible intervals based on MC samples
-ci90mctheta_s=quantile(mctheta_s,c(.5,.95))
-ci90mctheta_b=quantile(mctheta_b,c(.5,.95))
-ci90mcrho_s=quantile(mcrho_s,c(.5,.95))
-ci90mcrho_b=quantile(mcrho_b,c(.5,.95))
+ci90mctheta_s=quantile(mctheta_s,c(.05,.95))
+ci90mctheta_b=quantile(mctheta_b,c(.05,.95))
+ci90mcrho_s=quantile(mcrho_s,c(.05,.95))
+ci90mcrho_b=quantile(mcrho_b,c(.05,.95))
 
 
 ### updating parms for problem 2, surface data
@@ -69,11 +69,11 @@ a22 = a2 + n/2
 b22 = 1 / ((1/b2) + .5*sum((b-bb)^2) + ((k0_b*n*((bb-mu0_b)^2))/2*(k0_b+n)))
 
 ### ci's for problem 2, common rho
-ci90theta2_s=c(mu2_s+qt(0.5,2*a22)/sqrt(k2_s*a22*b22),
+ci90theta2_s=c(mu2_s+qt(0.05,2*a22)/sqrt(k2_s*a22*b22),
               mu2_s+qt(0.95,2*a22)/sqrt(k2_s*a22*b22))
-ci90theta2_b=c(mu2_b+qt(0.5,2*a22)/sqrt(k2_b*a22*b22),
+ci90theta2_b=c(mu2_b+qt(0.05,2*a22)/sqrt(k2_b*a22*b22),
               mu2_b+qt(0.95,2*a22)/sqrt(k2_b*a22*b22))
-ci90rho2=c(qgamma(0.5,a22,scale=b22),
+ci90rho2=c(qgamma(0.05,a22,scale=b22),
             qgamma(0.95,a22,scale=b22))
 
 
@@ -88,10 +88,9 @@ ci90mctheta2_s=quantile(mctheta2_s,c(.5,.95))
 ci90mctheta2_b=quantile(mctheta2_b,c(.5,.95))
 ci90mcrho2=quantile(mcrho2,c(.5,.95))
 
-
-
-
 c(mu1_s,k1_s,a1_s,b1_s)
 c(mu1_b,k1_b,a1_b,b1_b)
 c(mu2_s,k2_s,a22,b22)
 c(mu2_b,k2_b,a22,b22)
+
+
