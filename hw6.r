@@ -57,16 +57,36 @@ ci90mcrho_s=quantile(mcrho_s,c(.5,.95))
 ci90mcrho_b=quantile(mcrho_b,c(.5,.95))
 
 
-### updating parms for problem 2
+### updating parms for problem 2, surface data
 mu2_s = (k0_s*mu0_s + n*sb) / (k0_s+n)
 k2_s = k0_s + n
-a2_s = a0_s + n/2
-b2_s = 1 / ((1/b0_s) + .5*sum((s-sb)^2) + ((k0_s*n*((sb-mu0_s)^2))/2*(k0_s+n)))
-
+a2 = a0_s + n/2
+b2 = 1 / ((1/b0_s) + .5*sum((s-sb)^2) + ((k0_s*n*((sb-mu0_s)^2))/2*(k0_s+n)))
+### updating again with bottom data
 mu2_b = (k0_b*mu0_b + n*bb) / (k0_b+n)
 k2_b = k0_b + n
-a2_b = a0_b + n/2
-b2_b = 1 / ((1/b0_b) + .5*sum((b-bb)^2) + ((k0_b*n*((bb-mu0_b)^2))/2*(k0_b+n)))
+a22 = a2 + n/2
+b22 = 1 / ((1/b2) + .5*sum((b-bb)^2) + ((k0_b*n*((bb-mu0_b)^2))/2*(k0_b+n)))
+
+### ci's for problem 2, common rho
+ci90theta2_s=c(mu2_s+qt(0.5,2*a22)/sqrt(k2_s*a22*b22),
+              mu2_s+qt(0.95,2*a22)/sqrt(k2_s*a22*b22))
+ci90theta2_b=c(mu2_b+qt(0.5,2*a22)/sqrt(k2_b*a22*b22),
+              mu2_b+qt(0.95,2*a22)/sqrt(k2_b*a22*b22))
+ci90rho2=c(qgamma(0.5,a22,scale=b22),
+            qgamma(0.95,a22,scale=b22))
+
+
+### generating MC samples #2
+mcrho2=rgamma(10000,a22,scale=b22)
+mctheta2_s=rnorm(10000,sb,1/sqrt(mcrho2*n))
+mctheta2_b=rnorm(10000,bb,1/sqrt(mcrho2*n))
+
+
+### credible intervals based on MC samples #2
+ci90mctheta2_s=quantile(mctheta2_s,c(.5,.95))
+ci90mctheta2_b=quantile(mctheta2_b,c(.5,.95))
+ci90mcrho2=quantile(mcrho2,c(.5,.95))
 
 
 
