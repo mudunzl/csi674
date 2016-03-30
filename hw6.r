@@ -1,5 +1,6 @@
 
 
+set.seed(1)
 
 ### data stuff
 s=c(3.74,4.61,4,4.67,4.87,5.12,4.52,5.29,5.74,5.48)
@@ -88,9 +89,23 @@ ci90mctheta2_s=quantile(mctheta2_s,c(.05,.95))
 ci90mctheta2_b=quantile(mctheta2_b,c(.05,.95))
 ci90mcrho2=quantile(mcrho2,c(.05,.95))
 
-c(mu1_s,k1_s,a1_s,b1_s)
-c(mu1_b,k1_b,a1_b,b1_b)
-c(mu2_s,k2_s,a22,b22)
-c(mu2_b,k2_b,a22,b22)
 
+### checking normality
+
+par(mfrow=c(2,2))
+
+qqnorm(s,main="QQ plot for Surface data")
+qqline(s)
+qqnorm(b,main="QQ plot for Bottom data")
+qqline(b)
+
+plot(density(s),main="Density plot for Surface data",col="red",ylim=c(0,.7))
+lines(density(rnorm(10000,mean(s),sd(s))),col="blue")
+plot(density(b),main="Density plot for Bottom data",col="red",ylim=c(0,.7))
+lines(density(rnorm(10000,mean(b),sd(b))),col="blue")
+
+shapiro.test(s)
+shapiro.test(b)
+
+var.test(s,b)
 
