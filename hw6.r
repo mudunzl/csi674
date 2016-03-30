@@ -91,3 +91,7 @@ ci90mcrho2=quantile(mcrho2,c(.5,.95))
 
 
 
+c(mu1_s,k1_s,a1_s,b1_s)
+c(mu1_b,k1_b,a1_b,b1_b)
+c(mu2_s,k2_s,a22,b22)
+c(mu2_b,k2_b,a22,b22)
