@@ -84,9 +84,9 @@ mctheta2_b=rnorm(10000,bb,1/sqrt(mcrho2*n))
 
 
 ### credible intervals based on MC samples #2
-ci90mctheta2_s=quantile(mctheta2_s,c(.5,.95))
-ci90mctheta2_b=quantile(mctheta2_b,c(.5,.95))
-ci90mcrho2=quantile(mcrho2,c(.5,.95))
+ci90mctheta2_s=quantile(mctheta2_s,c(.05,.95))
+ci90mctheta2_b=quantile(mctheta2_b,c(.05,.95))
+ci90mcrho2=quantile(mcrho2,c(.05,.95))
 
 c(mu1_s,k1_s,a1_s,b1_s)
 c(mu1_b,k1_b,a1_b,b1_b)
