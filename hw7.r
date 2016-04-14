@@ -1,5 +1,3 @@
-
-
 library(rjags)
 library(R2jags)
 library(coda)
@@ -41,7 +39,7 @@ for (k in 2:10000) {
   tau1 <- 1/sqrt(1/tau0^2+n*rhog[k-1])
   thetag_s[k] <-  rnorm(1,mean=mu1_s,sd=tau1)
   thetag_b[k] <-  rnorm(1,mean=mu1_b,sd=tau1)
-  b11 <- 1/(1/b1 + 0.5*sum((s-thetag_s[k])^2)+ 0.5*sum((b-thetag_b[k])^2))
+  b11 <- 1/(1/b0 + 0.5*sum((s-thetag_s[k])^2)+ 0.5*sum((b-thetag_b[k])^2))
   rhog[k] <- rgamma(1,shape=a11,scale=b11)
   sigg[k] <- 1/sqrt(rhog[k])
 }
@@ -52,23 +50,14 @@ quantile(thetag_b,c(0.025,0.975))
 quantile(sigg,c(0.025,0.975))
 quantile(thetag_b-thetag_s,c(0.025,0.975))
 
+# quantile(thetag_s,c(0.05,0.95))
+# quantile(thetag_b,c(0.05,0.95))
+# quantile(sigg,c(0.05,0.95))
+# quantile(thetag_b-thetag_s,c(0.05,0.95))
+# quantile(rhog,c(0.05,0.95))
 
 plot(1:10000,thetag_b-thetag_s,main="Trace Plot of Theta_b - Theta_s",xlab="Iteration",ylab="Delta")
 
 acf=acf(thetag_b-thetag_s,type="correlation")
 
 effectiveSize(thetag_b-thetag_s)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
